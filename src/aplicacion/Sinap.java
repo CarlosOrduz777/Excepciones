@@ -87,8 +87,14 @@ public class Sinap{
      * @param ubicacion
      * @param descripcion
      */
-    public void adicione(String nombre, String name,String ubicacion, String area, String descripcion){
-	   adicioneDetalles(new Area(nombre,name, ubicacion, area, descripcion));
+    public void adicione(String nombre, String name,String ubicacion, String area, String descripcion) throws SINAPExcepcion{
+        if (name == null || name.equals("")) {
+            throw new SINAPExcepcion(SINAPExcepcion.INTERNATIONAL_NAME_REQUIRED);
+        } else {
+            adicioneDetalles(new Area(nombre,name, ubicacion, area, descripcion));
+        }
+
+
     }
 
     /**
