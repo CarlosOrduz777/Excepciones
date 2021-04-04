@@ -93,15 +93,49 @@ public class Sinap{
      * @param descripcion
      */
     public void adicione(String nombre, String name,String ubicacion, String area, String descripcion) throws SINAPExcepcion{
-        if (name == null || name.equals("")) {
-            throw new SINAPExcepcion(SINAPExcepcion.INTERNATIONAL_NAME_REQUIRED);
-        } else {
-            try {
-                adicioneDetalles(new Area(nombre,name, ubicacion, area, descripcion));
-            } catch (SINAPExcepcion e){
-                throw e;
-            }
+        // Nombre es requerido
+        if (nombre == null || nombre.equals("")){
+            throw new SINAPExcepcion(SINAPExcepcion.NAME_REQUIRED);
 
+            // Name es requerido
+        } else if (name == null || name.equals("")) {
+            throw new SINAPExcepcion(SINAPExcepcion.INTERNATIONAL_NAME_REQUIRED);
+
+            // Ubicacion es requerido
+        } else if (ubicacion == null || ubicacion.equals("")) {
+            throw new SINAPExcepcion(SINAPExcepcion.LOCATION_REQUIRED);
+
+            // area es requerido
+        } else if (area == null || area.equals("")) {
+            throw new SINAPExcepcion(SINAPExcepcion.AREA_REQUIRED);
+
+            // descripcion es requerido
+        } else if (descripcion == null || descripcion.equals("")) {
+            throw new SINAPExcepcion(SINAPExcepcion.DESCRIPTION_REQUIRED);
+            // Nombres muy largos
+        } else if (nombre.length() > 150 || name.length() > 150) {
+            throw new SINAPExcepcion(SINAPExcepcion.NAME_LENGTH_EXCEEDED);
+
+        } else {
+            // Descripción muy larga
+            if (descripcion.length() > 1000) {
+                throw new SINAPExcepcion(SINAPExcepcion.DESCRIPTION_LENGTH_EXCEEDED);
+
+                // Ubicación muy larga
+            } else if (ubicacion.length() > 250) {
+                throw new SINAPExcepcion(SINAPExcepcion.LOCATION_LENGTH_EXCEEDED);
+
+                // Area muy larga
+            } else if (area.length() > 15) {
+                throw new SINAPExcepcion(SINAPExcepcion.AREA_LENGTH_EXCEEDED);
+            } else {
+                try {
+                    adicioneDetalles(new Area(nombre, name, ubicacion, area, descripcion));
+                } catch (SINAPExcepcion e) {
+                    throw e;
+                }
+
+            }
         }
 
 

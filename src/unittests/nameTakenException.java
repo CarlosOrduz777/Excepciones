@@ -29,7 +29,7 @@ public class nameTakenException {
      */
     @Test
     public void shouldNotAcceptDuplicatedAreas(){
-        // Tratamos de agregar un área sin nombre internacional
+        // Tratamos de agregar un área dos veces
         try {
             // Esta inserción funcionará
             this.sinap.adicione("test", "test", "test",
