@@ -168,7 +168,7 @@ public class Sinap{
      * @return Los detalles encontrados
      */
     public ArrayList<Area> busque(String prefijo){
-    ArrayList<Area> resultados= null;
+    ArrayList<Area> resultados = new ArrayList<>();
 	prefijo=prefijo.toUpperCase();
 	for(int i=0;i<areas.size();i++){
 	    if(areas.get(i).getNombre().toUpperCase().startsWith(prefijo)){
