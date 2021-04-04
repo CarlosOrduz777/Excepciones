@@ -1,6 +1,5 @@
 package unittests;
 
-import aplicacion.Area;
 import aplicacion.SINAPExcepcion;
 import aplicacion.Sinap;
 import org.junit.After;
@@ -9,7 +8,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class internationalNameException {
+public class nameTakenException {
 
     // Variables del documento
     private Sinap sinap;
@@ -24,18 +23,23 @@ public class internationalNameException {
     }
 
     /**
-     * Prueba para verificar si se insertó un nombre internacional y
-     * en caso contrario lanzar una excepción
-     * @result No se crearán áreas sin nombre internacional
+     * Prueba para verificar que un área insertada no exista en
+     * la 'base de datos'.
+     * @result No se insertarán elementos duplicados
      */
     @Test
-    public void shouldThrowExceptionIfNoInternationalNameIsGiven(){
+    public void shouldNotAcceptDuplicatedAreas(){
         // Tratamos de agregar un área sin nombre internacional
         try {
-            this.sinap.adicione("test nombre", "", "test ubicacion",
-                    "test area", "test description");
+            // Esta inserción funcionará
+            this.sinap.adicione("test", "test", "test",
+                    "test", "test");
+
+            // Esta lanzará una excepción
+            this.sinap.adicione("test", "test", "test",
+                    "test", "test");
         } catch (SINAPExcepcion e) {
-            assertEquals(SINAPExcepcion.INTERNATIONAL_NAME_REQUIRED, e.getMessage());
+            assertEquals(SINAPExcepcion.NAME_TAKEN, e.getMessage());
         }
 
     }

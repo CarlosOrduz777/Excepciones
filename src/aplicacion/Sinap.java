@@ -1,5 +1,6 @@
 package aplicacion; 
 
+import javax.swing.*;
 import java.util.LinkedList;
 import java.util.ArrayList;
 
@@ -57,7 +58,11 @@ public class Sinap{
             "alimentaria, entre otros factores.")
         };
         for(Area detalles : ejemplos) {
-            adicioneDetalles(detalles);
+            try {
+                adicioneDetalles(detalles);
+            } catch(SINAPExcepcion e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         }
     }
     
@@ -91,7 +96,12 @@ public class Sinap{
         if (name == null || name.equals("")) {
             throw new SINAPExcepcion(SINAPExcepcion.INTERNATIONAL_NAME_REQUIRED);
         } else {
-            adicioneDetalles(new Area(nombre,name, ubicacion, area, descripcion));
+            try {
+                adicioneDetalles(new Area(nombre,name, ubicacion, area, descripcion));
+            } catch (SINAPExcepcion e){
+                throw e;
+            }
+
         }
 
 
@@ -101,11 +111,18 @@ public class Sinap{
      * Adiciona una nueva area al SINAP
      * @param detalles El detalle asociado con la area
      */
-    public void adicioneDetalles(Area detalles){
+    public void adicioneDetalles(Area detalles) throws SINAPExcepcion{
     	int i=0;
     	while ((i<areas.size()) && (areas.get(i).getNombre().compareToIgnoreCase(detalles.getNombre())<0)){
     	    i++;
     	}
+
+    	for(Area registeredArea : areas){
+    	    if (registeredArea.getNombre().equals(detalles.getNombre()) || registeredArea.getName().equals(detalles.getName())) {
+                throw new SINAPExcepcion(SINAPExcepcion.NAME_TAKEN);
+            }
+        }
+
     	areas.add(i,detalles);
     }
     
