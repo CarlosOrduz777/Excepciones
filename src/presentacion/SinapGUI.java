@@ -277,12 +277,24 @@ public class SinapGUI extends JFrame{
         String patronBusqueda=busquedaTexto.getText();
         StringBuffer buffer = new StringBuffer();
         if(patronBusqueda.length() > 0) {
-            ArrayList <Area> results = areas.busque(patronBusqueda);
-            for(int i = 0; i < results.size(); i++) {
-                buffer.append(results.get(i).toString());
-                buffer.append('\n');
-                buffer.append('\n');
-             }
+            try {
+                ArrayList<Area> results = areas.busque(patronBusqueda);
+                for(int i = 0; i < results.size(); i++) {
+                    buffer.append(results.get(i).toString());
+                    buffer.append('\n');
+                    buffer.append('\n');
+                }
+            } catch(NullPointerException e){
+                // Informamos al usuario
+                JOptionPane.showMessageDialog(null, "Ups, ¡algo salió mal!");
+
+                // Guardamos el error en el registro (con salida)
+                //Registro.registre(e);
+
+                // Guardamos el error en el registro (sin salida)
+                Registro.registreNoExit(e);
+            }
+
         }
         resultadosTexto.setText(buffer.toString());
     } 
