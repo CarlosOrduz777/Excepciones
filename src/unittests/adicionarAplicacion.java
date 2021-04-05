@@ -27,6 +27,7 @@ public class adicionarAplicacion {
 
     /**
      * Prueba para adicionar un nuevo elemento
+     * @result Se creó un nuevo elemento en la lista de áreas
      */
     @Test
     public void shouldAddElement(){
@@ -39,7 +40,9 @@ public class adicionarAplicacion {
 
 
         // Agregamos el área de prueba
-        this.sinap.adicioneDetalles(this.testArea);
+        try {
+            this.sinap.adicioneDetalles(this.testArea);
+        } catch(SINAPExcepcion e) {}
 
         // Verificamos que la longitud del arreglo de áreas haya aumentado en 1
         assertEquals(++prevLength, this.sinap.numeroAreas());
@@ -48,11 +51,15 @@ public class adicionarAplicacion {
 
     /**
      * Prueba para verificar la correcta inserción de un elemento
+     * @result Se insertó correctamente un elemento en la lista de
+     * áreas
      */
     @Test
     public void shouldVerifyElement(){
         // Agregamos el área de prueba
-        this.sinap.adicioneDetalles(testArea);
+        try {
+            this.sinap.adicioneDetalles(testArea);
+        } catch(SINAPExcepcion e) {}
 
         // Traemos el área de prueba
         Area sinapArea = this.sinap.getDetalles(this.testArea.getNombre(), this.testArea.getName());
@@ -75,6 +82,8 @@ public class adicionarAplicacion {
 
     /**
      * Prueba para adicionar un cinco nuevos elementos
+     * @result Se insertaron cinco elementos en la lista de
+     * áreas
      */
     @Test
     public void shouldAddFiveElements(){
@@ -118,7 +127,9 @@ public class adicionarAplicacion {
                                 "alimentaria, entre otros factores.")
         };
         for(Area detalles : ejemplos) {
-            this.sinap.adicioneDetalles(detalles);
+            try {
+                this.sinap.adicioneDetalles(detalles);
+            } catch(SINAPExcepcion e) {}
         }
 
         // Verificamos que la longitud del arreglo de áreas haya aumentado en 5

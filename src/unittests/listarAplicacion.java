@@ -27,6 +27,7 @@ public class listarAplicacion {
 
     /**
      * Prueba para listar un nuevo elemento
+     * @result Se listó correctamente un elemento nuevo
      */
     @Test
     public void shouldListOneElement(){
@@ -34,14 +35,16 @@ public class listarAplicacion {
         assertEquals("", this.sinap.toString());
 
         // Agregamos el área de prueba
-        this.sinap.adicioneDetalles(this.testArea);
-
+        try {
+            this.sinap.adicioneDetalles(this.testArea);
+        } catch(SINAPExcepcion e){}
         // Probamos listar un elemento
         assertEquals(this.testArea.toString() + "\n\n", this.sinap.toString());
     }
 
     /**
      * Prueba para listar un cinco elementos
+     * @result Se listaron correctamente cinco elementos
      */
     @Test
     public void shouldListFiveElements(){
@@ -106,7 +109,9 @@ public class listarAplicacion {
 
         for(Area detalles : ejemplos) {
             // Guardamos cada área
-            this.sinap.adicioneDetalles(detalles);
+            try {
+                this.sinap.adicioneDetalles(detalles);
+            } catch (SINAPExcepcion e) {}
         }
 
 
